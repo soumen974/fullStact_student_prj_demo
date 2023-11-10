@@ -3,14 +3,15 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { Add } from '@mui/icons-material';
-import { useState } from 'react';
+import { useState ,useEffect} from 'react';
 
 export default function Student() {
     const [name, setname] = useState('')
-    const [Address, setAddress] = useState('');
+    const [address, setAddress] = useState('');
+    const [student, setstudent] = useState([]);
     const HandleForm = (e) => {
         e.preventDefault();
-        const student = { name,Address};
+        const student = { name,address};
         console.log(student);
       
         fetch("http://localhost:8080/student/add", {
@@ -22,6 +23,14 @@ export default function Student() {
             console.log("New Student added");
           });
       };
+
+      useEffect(()=>{
+        fetch("http://localhost:8080/student/getAll")
+        .then(res=>res.json())
+        .then((result)=>{
+          setstudent(result);
+        })
+      },[])
       
   return (
     <Box
@@ -54,12 +63,23 @@ export default function Student() {
             id="outlined-required"
             label="Student Address"
             fullWidth
-            value={Address}
+            value={address}
             onChange={(e)=>setAddress(e.target.value)}
             />
 
             <Button variant="contained" onClick={HandleForm}>Submit</Button>
         
+        </div>
+
+        <div>
+          {student.map(student=>(
+            <div key={student.id}>
+            {student.id}.
+            Name:{student.name}<br/>
+            Address:{student.address}
+            <br/><br/>
+            </div>
+          ))}
         </div>
     </Box>
   );

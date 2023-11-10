@@ -9,23 +9,19 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 export default function Appbar() {
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box >
       <AppBar position="static">
         <Toolbar>
           <IconButton
             size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
+            color="inherit"  
             sx={{ mr: 2 }}
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Typography variant="h6" component="div">
             Springboot with React Fullstack app 
           </Typography>
-          
-          <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>
     </Box>
